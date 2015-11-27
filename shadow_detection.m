@@ -19,9 +19,9 @@ if(mean_a + mean_b <= 256)
     for i= 1:m
         for j= 1:n
             if(lab_img(i,j,1) <= mean_l - std_l)
-                mean_Shadow_l = mean_nonShadow_l + lab_img(i,j,1);
-                mean_Shadow_a = mean_nonShadow_a + lab_img(i,j,2);
-                mean_Shadow_b = mean_nonShadow_b + lab_img(i,j,3);
+                mean_Shadow_l = mean_Shadow_l + lab_img(i,j,1);
+                mean_Shadow_a = mean_Shadow_a + lab_img(i,j,2);
+                mean_Shadow_b = mean_Shadow_b + lab_img(i,j,3);
                 num_Shadow = num_Shadow + 1;
             else
                 mean_nonShadow_l = mean_nonShadow_l + lab_img(i,j,1);
