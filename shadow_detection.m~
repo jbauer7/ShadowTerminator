@@ -19,14 +19,14 @@ if(mean_a + mean_b <= 256)
     for i= 1:m
         for j= 1:n
             if(lab_img(i,j,1) <= mean_l - std_l)
-                mean_Shadow_l = mean_nonShadow_l + lab_img(i,j,1);
-                mean_Shadow_a = mean_nonShadow_a + lab_img(i,j,2);
-                mean_Shadow_b = mean_nonShadow_b + lab_img(i,j,3);
-                num_Shadow = num_Shadow + 1;
+                mean_Shadow_l = mean_nonShadow_l + img(i,j,1);
+                mean_Shadow_a = mean_nonShadow_a + img(i,j,2);
+                mean_Shadow_b = mean_nonShadow_b + img(i,j,3);
+                num_Shadow = numShadow + 1;
             else
-                mean_nonShadow_l = mean_nonShadow_l + lab_img(i,j,1);
-                mean_nonShadow_a = mean_nonShadow_a + lab_img(i,j,2);
-                mean_nonShadow_b = mean_nonShadow_b + lab_img(i,j,3);
+                mean_nonShadow_l = mean_nonShadow_l + img(i,j,1);
+                mean_nonShadow_a = mean_nonShadow_a + img(i,j,2);
+                mean_nonShadow_b = mean_nonShadow_b + img(i,j,3);
                 num_nonShadow= num_nonShadow + 1;
             end
         end
@@ -39,20 +39,19 @@ mean_Shadow_a = mean_Shadow_a/num_Shadow;
 mean_nonShadow_b = mean_nonShadow_b/num_nonShadow;
 mean_Shadow_b = mean_Shadow_b/num_Shadow;
 
-diff_l = mean_Shadow_L - mean_nonShadow_l;
-diff_a = mean_Shadow_a - mean_nonShadow_a;
-diff_b = mean_Shadow_b - mean_nonShadow_b;
+diff_l = mean_nonShadow_l - mean_Shadow_L;
+diff_a = mean_nonShadow_a - mean_Shadow_a;
+diff_b = mean_nonShadow_b - mean_Shadow_b;
 
 for i= 1:m
         for j= 1:n
             if(lab_img(i,j,1) <= mean_l - std_l)
-                lab_img(i,j,1) = lab_img(i,j,1) - diff_l;
-                lab_img(i,j,2) = lab_img(i,j,2) - diff_a;
-                lab_img(i,j,3) = lab_img(i,j,3) - diff_b;
+                img(i,j,1) = img(i,j,1) + diff_l;
+                img(i,j,2) = img(i,j,2) +
+                img(i,j,3)
             end
         end
 end
-img = Lab2RGB(lab_img);
 img_out=img;
 end
 
