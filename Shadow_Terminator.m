@@ -1,7 +1,9 @@
-img = imread('shadow_edit.jpg');
+img = imread('game_shadow.jpg');
 img = im2double(img);
-img = shadow_detection(img);
 
-% Gaussian Filter to smooth transitions
+    img = shadow_detection(img);
+
+img = imgaussfilt(img);
+%Gaussian Filter to smooth transitions
 img = im2uint8(img);
-imwrite(img, 'shadow_out.jpg');
+imwrite(img, 'shadow_game_out.jpg');
