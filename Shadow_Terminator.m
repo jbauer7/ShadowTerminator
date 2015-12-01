@@ -1,4 +1,4 @@
-img = imread('game_shadow.jpg');
+img = imread('Shadows-dog.jpg');
 img = im2double(img);
 
     img = shadow_detection(img);

@@ -47,8 +47,8 @@ for i= 1:m
         for j= 1:n
             if(lab_img(i,j,1) <= mean_l - std_l)
                 lab_img(i,j,1) = lab_img(i,j,1) - diff_l;
-               % lab_img(i,j,2) = lab_img(i,j,2) - diff_a;
-                %lab_img(i,j,3) = lab_img(i,j,3) - diff_b;
+                lab_img(i,j,2) = lab_img(i,j,2) - diff_a;
+                lab_img(i,j,3) = lab_img(i,j,3) - diff_b;
             end
         end
 end
