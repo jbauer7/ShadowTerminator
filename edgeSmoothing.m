@@ -1,9 +1,9 @@
 function out_img = edgeSmoothing(i,j,img)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%Edge Smoothing - takes away the shadow glow 
+%by averaging pixels near the selected pixel
+
 [m,n,p] = size(img);
-% ch1=bw_img(:,:,1);
-% img =RGB2Lab(img);
+
 z=6; %j offset
 x=5;
 
@@ -35,7 +35,7 @@ if(j>6 && i>5 && i<m-1 && j<n-6)
     std_2 = std2(block_2);
     std_3 = std2(block_3);
     
-for k =0:3    
+for k =0:2    
     img(i,j+k,1)= avg_1 + std_1/2;%(img(i,j-1,1)+img(i,j-2,1)+img(i,j-3,1))/3;
     img(i,j+k,2)= avg_2 + std_2/2;%(img(i,j-1,2)+img(i,j-3,2)+img(i,j-3,2))/3;
     img(i,j+k,3)= avg_3 + std_3/2;%(img(i,j-1,3)+img(i,j-2,3)+img(i,j-3,3))/3;

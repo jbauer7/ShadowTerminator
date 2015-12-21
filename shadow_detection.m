@@ -11,6 +11,7 @@ num_nonShadow=0;
 
 bw_img = img; %correctly sizes bw img
 lab_img = RGB2Lab(img);
+
 %reads energy of original image
 %E = imenergy(img);
 
@@ -58,21 +59,11 @@ diff_l = mean_Shadow_L - mean_nonShadow_l;
 diff_a = mean_Shadow_a - mean_nonShadow_a;
 diff_b = mean_Shadow_b - mean_nonShadow_b;
 
-% Correct shadowed area of image
+% Creating different masks
 bw_img = rgb2gray(bw_img);
-
-bw_img = bwareaopen(bw_img, m*n/4);
-
+%bw_img = bwareaopen(bw_img, m*n/4); %noise reduction
 E_BW = imenergy(bw_img);
-figure,imshow(E_BW);title('EBw');
-
-
-% bw_c=edge(bw_img,'Canny');
-% bw_p=edge(bw_img,'Sobel');
-% figure,imshowpair(bw_c,bw_p,'montage');title('edge');
-
-%bw_e = bw_img.*E; %creates bw/energy combo image
-%figure,imshow(bw_e);title('bw and energy');
+figure,imshow(E_BW);title('Energy and Black/White');
 
 for i= 1:m
         for j= 2:n
@@ -81,10 +72,6 @@ for i= 1:m
             if(E_BW(i,j) == 1)
                 lab_img = edgeSmoothing(i,j,lab_img);
             end
-            %NEED TO FLIP IMAGE AND EBW RUN AGAIN
-%             if(bw_e(i,j) ~= 0 && E(i,j) == 1)
-%                 lab_img = edgeSmoothing(i,j,lab_img);
-%             end
             if(lab_img(i,j,1) <= mean_l - std_l)
                 lab_img(i,j,1) = lab_img(i,j,1) - diff_l;
                 lab_img(i,j,2) = lab_img(i,j,2) - diff_a;
@@ -93,11 +80,7 @@ for i= 1:m
             end
         end
 end
-
-figure,imshow(bw_img);title('bwimg');
 img = Lab2RGB(lab_img);
-%imenergy(img);
 img_out=img;
-
 end
 

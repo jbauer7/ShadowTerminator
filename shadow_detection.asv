@@ -58,19 +58,14 @@ diff_l = mean_Shadow_L - mean_nonShadow_l;
 diff_a = mean_Shadow_a - mean_nonShadow_a;
 diff_b = mean_Shadow_b - mean_nonShadow_b;
 
-% Correct shadowed area of image
+% Creating different masks
+bw_img = rgb2gray(bw_img);
 
 bw_img = bwareaopen(bw_img, m*n/4);
+
 E_BW = imenergy(bw_img);
 figure,imshow(E_BW);title('EBw');
 
-
-% bw_c=edge(bw_img,'Canny');
-% bw_p=edge(bw_img,'Sobel');
-% figure,imshowpair(bw_c,bw_p,'montage');title('edge');
-
-%bw_e = bw_img.*E; %creates bw/energy combo image
-%figure,imshow(bw_e);title('bw and energy');
 
 for i= 1:m
         for j= 2:n
