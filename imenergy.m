@@ -1,5 +1,5 @@
 function E = imenergy(I)
-I_grey = rgb2gray(I);
+I_grey = I ;% rgb2gray(I);
 [Gmag, Gdir] = imgradient(I_grey);
 E = Gmag;
 mean_e = mean2(E);

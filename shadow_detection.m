@@ -11,8 +11,6 @@ num_nonShadow=0;
 
 bw_img = img; %correctly sizes bw img
 lab_img = RGB2Lab(img);
-%reads energy of original image
-E = imenergy(img);
 
 % values are used to find shadowed regions
 mean_l = mean2(lab_img(:,:,1));
@@ -59,34 +57,48 @@ diff_a = mean_Shadow_a - mean_nonShadow_a;
 diff_b = mean_Shadow_b - mean_nonShadow_b;
 
 % Correct shadowed area of image
-bw_img = rgb2gray(bw_img);
 % bw_c=edge(bw_img,'Canny');
 % bw_p=edge(bw_img,'Sobel');
 % figure,imshowpair(bw_c,bw_p,'montage');title('edge');
-bw_e = bw_img.*E; %creates bw/energy combo image
+
+bw_img = rgb2gray(bw_img);
+%bw_img = bwareaopen(bw_img, m*n/4);
+%imshow(bw_img);
+ 
+bw_e = imenergy(bw_img); %creates bw/energy combo image
 figure,imshow(bw_e);title('bw and energy');
 for i= 1:m
         for j= 2:n
             %if the the pixel meets the energy threshold, replace
             %eliminats the glow
-            if(E(i,j)==1)%bw_img(i,j) ~= bw_img(i,j-1))
-                lab_img = edgeSmoothing(i,j,lab_img);
+            if(bw_e(i,j)==1)%bw_img(i,j) ~= bw_img(i,j-1))
+               % lab_img = edgeSmoothing(i,j,img);
             end
-%             if(bw_e(i,j) ~= 0 && E(i,j) == 1)
-%                 lab_img = edgeSmoothing(i,j,lab_img);
-%             end
+            
             if(lab_img(i,j,1) <= mean_l - std_l)
                 lab_img(i,j,1) = lab_img(i,j,1) - diff_l;
                 lab_img(i,j,2) = lab_img(i,j,2) - diff_a;
                 lab_img(i,j,3) = lab_img(i,j,3) - diff_b;
-                
             end
         end
 end
 
-figure,imshow(bw_img);title('bwimg');
 img = Lab2RGB(lab_img);
-%imenergy(img);
+
+E = edge(bw_img, 'canny');
+figure;
+imshow(E);
+Ed = imdilate(E,strel('disk',1));
+Ed3 = repmat(Ed,[1 1 3]);
+%Filtered image
+Ifilt = imfilter(img,fspecial('gaussian', 10));
+%Use Ed as logical index into I to and replace with Ifilt
+img(Ed3) = Ifilt(Ed3);
+
+
+figure,imshow(bw_img);title('bwimg');
+
+figure, imshow(img);
 img_out=img;
 end
 
