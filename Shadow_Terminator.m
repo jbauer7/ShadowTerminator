@@ -1,4 +1,4 @@
-img = imread('shadow_edit.jpg');
+img = imread('shadow-peace.jpg');
 img = im2double(img);
 
 img = shadow_detection(img);

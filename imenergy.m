@@ -1,6 +1,6 @@
 function E = imenergy(I)
-I_grey = rgb2gray(I);
-[Gmag, Gdir] = imgradient(I_grey);
+%I_grey = rgb2gray(I);
+[Gmag, Gdir] = imgradient(I);
 E = Gmag;
 mean_e = mean2(E);
 std_e = std2(E);
@@ -16,4 +16,4 @@ end
 
 
 %imge = imagesc(E);
-figure,imshow(E); title('Energy');
+%figure,imshow(E); title('Energy');

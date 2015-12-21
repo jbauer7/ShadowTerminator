@@ -12,7 +12,7 @@ num_nonShadow=0;
 bw_img = img; %correctly sizes bw img
 lab_img = RGB2Lab(img);
 %reads energy of original image
-E = imenergy(img);
+%E = imenergy(img);
 
 % values are used to find shadowed regions
 mean_l = mean2(lab_img(:,:,1));
@@ -60,18 +60,28 @@ diff_b = mean_Shadow_b - mean_nonShadow_b;
 
 % Correct shadowed area of image
 bw_img = rgb2gray(bw_img);
+
+bw_img = bwareaopen(bw_img, m*n/4);
+
+E_BW = imenergy(bw_img);
+figure,imshow(E_BW);title('EBw');
+
+
 % bw_c=edge(bw_img,'Canny');
 % bw_p=edge(bw_img,'Sobel');
 % figure,imshowpair(bw_c,bw_p,'montage');title('edge');
-bw_e = bw_img.*E; %creates bw/energy combo image
-figure,imshow(bw_e);title('bw and energy');
+
+%bw_e = bw_img.*E; %creates bw/energy combo image
+%figure,imshow(bw_e);title('bw and energy');
+
 for i= 1:m
         for j= 2:n
             %if the the pixel meets the energy threshold, replace
             %eliminats the glow
-            if(E(i,j)==1)%bw_img(i,j) ~= bw_img(i,j-1))
+            if(E_BW(i,j) == 1)
                 lab_img = edgeSmoothing(i,j,lab_img);
             end
+            %NEED TO FLIP IMAGE AND EBW RUN AGAIN
 %             if(bw_e(i,j) ~= 0 && E(i,j) == 1)
 %                 lab_img = edgeSmoothing(i,j,lab_img);
 %             end
@@ -88,5 +98,6 @@ figure,imshow(bw_img);title('bwimg');
 img = Lab2RGB(lab_img);
 %imenergy(img);
 img_out=img;
+
 end
 
