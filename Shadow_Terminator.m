@@ -1,43 +1,40 @@
-img = imread('shadow-three.jpg');
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Shadow Terminator:
+%
+%Shadow terminator detects shadows in images then attemps to remove the 
+%shadow from the image.
+%
+%For more information go to this URL: 
+%https://sites.google.com/a/wisc.edu/shadow-terminator/
+%
+%Authors: Jospeh Bauer, Elliot Busta, Eric Johnson
+%
+%Other Contributions:
+%RGB2Lab.m and Lab2RGB.m are functions provide by Professor for Homework #2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%uncomment next line to auto close figures!
+%close all;
+
+%Example images are located in the Input_Images/ directory
+%labled input1, input2,..., input6
+img = imread('Input_Images/input5.jpg');
+
 img = im2double(img);
 
-img = shadow_detection(img);
-%img = shadow_detection(img);
-I=img;
-% E = edge(img(:,:,1),'canny');
-% figure;
-% imshow(E);
-% 
-%Dilate the edges
-% Ed = imdilate(E,strel('disk',30));
-% Ed3 = repmat(Ed,[1 1 3]);
-% %Filtered image
-% Ifilt = imfilter(I,fspecial('gaussian'));
-% %Use Ed as logical index into I to and replace with Ifilt
-% I(Ed3) = Ifilt(Ed3);
+%Calls shadow dection and shadow removal
+img = shadowDetectionRemoval(img);
 
-figure;
-imshow(I);
+%Gaussian Filter to smooth transitions
+IMG = imgaussfilt(img,1);
 
-Iblur1 = imgaussfilt(img,2);
-Iblur2 = imgaussfilt(img,4);
-Iblur3 = imgaussfilt(img,8);
+%displays output wiht guassian blur 
+figure,imshow(IMG);title('guass');
 
 img = im2uint8(img);
-figure
-imshow(img)
-title('Original image')
 
-figure
-imshow(Iblur1)
-title('Smoothed image, \sigma = 2')
+%Displays Output Image
+figure, imshow(img); title('output image');
 
-figure
-imshow(Iblur2)
-title('Smoothed image, \sigma = 4')
-
-figure
-imshow(Iblur3)
-title('Smoothed image, \sigma = 8')
-%figure, imshow(img); title('output image');
-%imwrite(img, 'shadow_game_out.jpg')
+%Saves Output Image to Output_Images/ directory
+imwrite(img, 'Output_Images/output5.jpg');

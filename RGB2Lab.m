@@ -1,4 +1,5 @@
 function [L,a,b] = RGB2Lab(R,G,B)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % function [L, a, b] = RGB2Lab(R, G, B)
 % RGB2Lab takes matrices corresponding to Red, Green, and Blue, and 
 % transforms them into CIELab.  This transform is based on ITU-R 
@@ -7,6 +8,7 @@ function [L,a,b] = RGB2Lab(R,G,B)
 % 10^-5.  RGB values can be either between 0 and 1 or between 0 and 255.  
 % By Mark Ruzon from C code by Yossi Rubner, 23 September 1997.
 % Updated for MATLAB 5 28 January 1998.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if (nargin == 1)
   B = double(R(:,:,3));

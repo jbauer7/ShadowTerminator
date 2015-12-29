@@ -1,10 +1,16 @@
 function E = imenergy(I)
-I_grey = I ;% rgb2gray(I);
-[Gmag, Gdir] = imgradient(I_grey);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%takes in a BW image, creates an energy function based
+%on that image
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[Gmag, Gdir] = imgradient(I);
 E = Gmag;
+
+%Energy function variables 
 mean_e = mean2(E);
 std_e = std2(E);
 [m,n] =size(E);
+
 %detecting edge based on energy
 for i=1:m
     for j=1:n
@@ -13,7 +19,3 @@ for i=1:m
         end
     end
 end
-
-
-%imge = imagesc(E);
-figure,imshow(E); title('Energy');

@@ -1,4 +1,5 @@
 function [R, G, B] = Lab2RGB(L, a, b)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %LAB2RGB Convert an image from CIELAB to RGB
 %
 % function [R, G, B] = Lab2RGB(L, a, b)
@@ -16,12 +17,12 @@ function [R, G, B] = Lab2RGB(L, a, b)
 % approximately 10^-5.  
 %
 % See also RGB2LAB. 
-
+%
 % By Mark Ruzon from C code by Yossi Rubner, 23 September 1997.
 % Updated for MATLAB 5 28 January 1998.
 % Fixed a bug in conversion back to uint8 9 September 1999.
 % Updated for MATLAB 7 30 March 2009.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if nargin == 1
   b = L(:,:,3);
   a = L(:,:,2);
